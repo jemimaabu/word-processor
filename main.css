@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+main {
+    padding: 1em;
+    width: 80%;
+    margin: 0 auto;
+    height: 100vh;
+}
+
+main h1 {
+    margin-top: 0;
+}
+
+#word-input-container {
+    display: inline-block;
+    width: 75%;
+    margin-right: 5%;
+    height: 85%;
+    float: right;
+}
+
+#word-input-container textarea {
+    padding: 1em;
+    height: 100%;
+    width: -webkit-fill-available;
+    width: 100%;
+    border: 2px solid black;
+    outline: none;
+    resize: none;
+}
+
+#word-counter-container {
+    width: 20%;
+    padding: 1em;
+    height: 85%;
+    float: right;
+    border: 2px solid black;
+}
+
+aside#word-counter-container h2 {
+    margin-top: 0;
+}
+
+#word-counter #character-count::after {
+    content: " characters"
+}
+
+#word-counter #word-count::after {
+    content: " words"
+}
+
+#word-counter #sentence-count::after {
+    content: " sentences"
+}
+
+#word-counter #most-used-word::before {
+    content: "Most used word: "
+}
+
+@media (max-width: 992px) {
+    main {
+        width: 100%;
+    }
+}
+
+@media (max-width: 620px) {
+    #word-counter-container {
+        width: 100%;
+        display: block;
+        height: auto;
+    }
+
+    #word-input-container {
+        display: block;    
+        width: 100%;
+        margin: 1em 0 0;
+        height: 50vh;
+        float: left;
+    }
+}
+
