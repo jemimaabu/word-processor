@@ -56,7 +56,7 @@ function getMostUsedWord() {
     }
 }
 
-document.getElementById("word-input").onkeypress =  function() {
+document.getElementById("word-input").onkeyup =  function() {
     getCharacterCount();
     getWordCount();
     getSentenceCount();
