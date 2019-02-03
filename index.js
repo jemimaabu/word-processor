@@ -3,7 +3,7 @@ var wordInput = document.getElementById("word-input");
 function getCharacterCount() {
     var characterCount = document.getElementById("character-count");
     if (wordInput.value.length > 0) {
-        characterCount.innerHTML = wordInput.value.trim().split("").length
+        characterCount.innerHTML = wordInput.value.trim().split("").filter(ch => ch.trim() != "").length
     } else {
         characterCount.innerHTML = 0
     }
