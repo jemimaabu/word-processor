@@ -3,7 +3,7 @@ var wordInput = document.getElementById("word-input");
 function getCharacterCount() {
     var characterCount = document.getElementById("character-count");
     if (wordInput.value.length > 0) {
-        characterCount.innerHTML = wordInput.value.trim().split("").length
+        characterCount.innerHTML = wordInput.value.trim().split("").filter(ch => ch.trim() != "").length
     } else {
         characterCount.innerHTML = 0
     }
@@ -39,7 +39,7 @@ function getMostUsedWord() {
     {
         for (var j=i; j<wordArray.length; j++)
         {
-            if (wordArray[i] == wordArray[j]) {
+            if (wordArray[i].toLowerCase() == wordArray[j].toLowerCase()) {
                 count++;
                 if (initialCount<count){
                     initialCount = count; 
@@ -56,7 +56,7 @@ function getMostUsedWord() {
     }
 }
 
-document.getElementById("word-input").onkeypress =  function() {
+document.getElementById("word-input").onkeyup =  function() {
     getCharacterCount();
     getWordCount();
     getSentenceCount();
