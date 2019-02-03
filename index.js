@@ -39,7 +39,7 @@ function getMostUsedWord() {
     {
         for (var j=i; j<wordArray.length; j++)
         {
-            if (wordArray[i] == wordArray[j]) {
+            if (wordArray[i].toLowerCase() == wordArray[j].toLowerCase()) {
                 count++;
                 if (initialCount<count){
                     initialCount = count; 
