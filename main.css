@@ -48,22 +48,6 @@ aside#word-counter-container h2 {
     margin-top: 0;
 }
 
-#word-counter #character-count::after {
-    content: " characters"
-}
-
-#word-counter #word-count::after {
-    content: " words"
-}
-
-#word-counter #sentence-count::after {
-    content: " sentences"
-}
-
-#word-counter #most-used-word::before {
-    content: "Most used word: "
-}
-
 @media (max-width: 992px) {
     main {
         width: 100%;
