@@ -68,7 +68,7 @@ wordInput.onkeyup = function(event) {
     // only run this function if spacebar or backspace is pressed
     if (event.keyCode === 32 || event.keyCode === 8) {
         getWordCount();
-    }''
+    };
 
     // this needs to run all the time
     getCharacterCount();
