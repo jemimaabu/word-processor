@@ -1,37 +1,42 @@
 var wordInput = document.getElementById("word-input");
 
+// global sentence counter
+let sentenceCounter = 0;
+
 function getCharacterCount() {
-    var characterCount = document.getElementById("character-count");
+    var characterCount = document.querySelector(".character-count-span");
     if (wordInput.value.length > 0) {
         characterCount.innerHTML = wordInput.value.trim().split("").filter(ch => ch.trim() != "").length
-    } else {
+    } 
+
+    // we can remove this if we begin with 0 as the default in the html file
+    else {
         characterCount.innerHTML = 0
     }
 }
 
 function getWordCount() {
-    var wordCount = document.getElementById("word-count");
+    var wordCount = document.querySelector(".word-count-span");
     if (wordInput.value.length > 0) {
         wordCount.innerHTML = wordInput.value.trim().split(" ").length
-    } else {
+    } 
+    
+    // we can remove this if we begin with 0 as the default in the html file
+    else {
         wordCount.innerHTML = 0
     }
 }
 
 function getSentenceCount() {
-    var sentenceCount = document.getElementById("sentence-count");
-    var wordArray = wordInput.value.split(" ");
-    var punctuation = [".", "!", "?"];
-    var sentenceArray = wordArray.filter(x => punctuation.includes(x[x.length-1]));
-    if (wordInput.value.length > 0) {
-        sentenceCount.innerHTML = sentenceArray.length
-    } else {
-        sentenceCount.innerHTML = 0
-    }
+    let sentenceCountSpan = document.querySelector(".sentence-count-span");
+    // we can calculate the sentences by adding 1 to the global counter each time this is run
+    sentenceCountSpan.innerHTML = ++sentenceCounter;
 }
 
+let wordHash = {};
+
 function getMostUsedWord() {
-    var mostUsedWord = document.getElementById("most-used-word");
+    var mostUsedWord = document.querySelector(".most-used-word-span");
     var wordArray = wordInput.value.split(" ");
     var initialCount = 1;
     var count = 0;
@@ -39,7 +44,8 @@ function getMostUsedWord() {
     {
         for (var j=i; j<wordArray.length; j++)
         {
-            if (wordArray[i].toLowerCase() == wordArray[j].toLowerCase()) {
+            // this will catch duplicate words that fall at the end of a sentence
+            if (wordArray[i].replace(/[.!?]/g, "").toLowerCase() == wordArray[j].replace(/[.!?]/g, "").toLowerCase()) {
                 count++;
                 if (initialCount<count){
                     initialCount = count; 
@@ -51,19 +57,27 @@ function getMostUsedWord() {
     }
     if (word) {
         mostUsedWord.innerHTML = `${word} (${initialCount} times)`
-    } else {
+    } 
+    
+    // we can remove this if we begin with 0 as the default in the html file
+    else {
         mostUsedWord.innerHTML = ""
     }
 }
 
-document.getElementById("word-input").onkeyup =  function() {
-    getCharacterCount();
-    getWordCount();
-    getSentenceCount();
-    getMostUsedWord();
-}
+document.getElementById("word-input").onkeyup = function(event) {
 
-getCharacterCount();
-getWordCount();
-getSentenceCount();
-getMostUsedWord();
+    // only run these functions if ".", "!", or "?" are pressed
+    if (event.keyCode === 190 || event.keyCode === 191 || event.keyCode === 49) {
+        getSentenceCount();
+        getMostUsedWord();
+    }
+
+    // only run this function if spacebar is pressed
+    if (event.keyCode === 32) {
+        getWordCount();
+    }
+
+    // this needs to run all the time
+    getCharacterCount();
+}
