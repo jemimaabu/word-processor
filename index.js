@@ -6,34 +6,33 @@ let sentenceCounter = 0;
 function getCharacterCount() {
     var characterCount = document.querySelector(".character-count-span");
     if (wordInput.value.length > 0) {
-        characterCount.innerHTML = wordInput.value.trim().split("").filter(ch => ch.trim() != "").length
-    } 
-
-    // we can remove this if we begin with 0 as the default in the html file
-    else {
-        characterCount.innerHTML = 0
-    }
-}
+        characterCount.innerHTML = wordInput.value.trim().split("").filter(ch => ch.trim() != "").length;
+    } else {
+        characterCount.innerHTML = 0;
+    };
+};
 
 function getWordCount() {
     var wordCount = document.querySelector(".word-count-span");
     if (wordInput.value.length > 0) {
-        wordCount.innerHTML = wordInput.value.trim().split(" ").length
-    } 
-    
-    // we can remove this if we begin with 0 as the default in the html file
-    else {
-        wordCount.innerHTML = 0
-    }
-}
+        wordCount.innerHTML = wordInput.value.trim().split(" ").length;
+    } else {
+        wordCount.innerHTML = 0;
+    };
+};
 
 function getSentenceCount() {
-    let sentenceCountSpan = document.querySelector(".sentence-count-span");
-    // we can calculate the sentences by adding 1 to the global counter each time this is run
-    sentenceCountSpan.innerHTML = ++sentenceCounter;
-}
+    var sentenceCount = document.querySelector(".sentence-count-span");
 
-let wordHash = {};
+    // we can split each sentence on punctuation and newline
+    let wordArray = wordInput.value.split(/[.!?\n]/);
+    
+    if (wordInput.value.length > 0) {
+        sentenceCount.innerHTML = wordArray.length-1;
+    } else {
+        sentenceCount.innerHTML = 0;
+    }
+};
 
 function getMostUsedWord() {
     var mostUsedWord = document.querySelector(".most-used-word-span");
@@ -67,14 +66,14 @@ function getMostUsedWord() {
 
 document.getElementById("word-input").onkeyup = function(event) {
 
-    // only run these functions if ".", "!", or "?" are pressed
-    if (event.keyCode === 190 || event.keyCode === 191 || event.keyCode === 49) {
+    // only run these functions if enter, ".", "!", "?", or backspace are pressed
+    if (event.keyCode === 13 || event.keyCode === 190 || event.keyCode === 191 || event.keyCode === 49 || event.keyCode === 8) {
         getSentenceCount();
         getMostUsedWord();
     }
 
-    // only run this function if spacebar is pressed
-    if (event.keyCode === 32) {
+    // only run this function if spacebar or backspace is pressed
+    if (event.keyCode === 32 || event.keyCode === 8) {
         getWordCount();
     }
 
