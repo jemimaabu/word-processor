@@ -31,7 +31,7 @@ function getSentenceCount() {
         sentenceCount.innerHTML = wordArray.length-1;
     } else {
         sentenceCount.innerHTML = 0;
-    }
+    };
 };
 
 function getMostUsedWord() {
@@ -49,19 +49,16 @@ function getMostUsedWord() {
                 if (initialCount<count){
                     initialCount = count; 
                     var word = wordArray[i];
-                }
-            }
-        }
+                };
+            };
+        };
         count=0;
-    }
+    };
     if (word) {
-        mostUsedWord.innerHTML = `${word} (${initialCount} times)`
-    } 
-    
-    // we can remove this if we begin with 0 as the default in the html file
-    else {
-        mostUsedWord.innerHTML = ""
-    }
+        mostUsedWord.innerHTML = `${word} (${initialCount} times)`;
+    } else {
+        mostUsedWord.innerHTML = "";
+    };
 }
 
 document.getElementById("word-input").onkeyup = function(event) {
@@ -70,12 +67,12 @@ document.getElementById("word-input").onkeyup = function(event) {
     if (event.keyCode === 13 || event.keyCode === 190 || event.keyCode === 191 || event.keyCode === 49 || event.keyCode === 8) {
         getSentenceCount();
         getMostUsedWord();
-    }
+    };
 
     // only run this function if spacebar or backspace is pressed
     if (event.keyCode === 32 || event.keyCode === 8) {
         getWordCount();
-    }
+    }''
 
     // this needs to run all the time
     getCharacterCount();
