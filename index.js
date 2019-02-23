@@ -37,7 +37,7 @@ function getMostUsedWord() {
     let wordsMap = {};
 
     wordArray.map(word => {
-      word = word.toLowerCase();
+      word = word.toLowerCase().replace(/[.!?]/g, "");
       if (wordsMap.hasOwnProperty(word)) {
         wordsMap[word]++;
       } else {
