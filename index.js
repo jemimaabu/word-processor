@@ -1,64 +1,61 @@
-var wordInput = document.getElementById("word-input");
+const wordInput = document.getElementById("word-input");
 
 //Returns character count by splitting the text into individual characters and returning the length
 function getCharacterCount() {
-    var characterCount = document.getElementById("character-count");
+    const characterCount = document.querySelector(".character-count-span");
     if (wordInput.value.length > 0) {
-        characterCount.innerHTML = wordInput.value.trim().split("").length
+        characterCount.innerHTML = wordInput.value.trim().split("").filter(ch => ch.trim() != "").length;
     } else {
-        characterCount.innerHTML = 0
-    }
-}
+        characterCount.innerHTML = 0;
+    };
+};
 
 //Returns word count by splitting the text according to space and returning the length
 function getWordCount() {
-    var wordCount = document.getElementById("word-count");
+    const wordCount = document.querySelector(".word-count-span");
     if (wordInput.value.length > 0) {
-        wordCount.innerHTML = wordInput.value.trim().split(" ").length
+        wordCount.innerHTML = wordInput.value.trim().split(" ").length;
     } else {
-        wordCount.innerHTML = 0
-    }
-}
+        wordCount.innerHTML = 0;
+    };
+};
 
 //Returns sentence count by splitting the text into words, filterning words that end with punctuation marks and returning the length
 function getSentenceCount() {
-    var sentenceCount = document.getElementById("sentence-count");
-    var wordArray = wordInput.value.split(" ");
-    var punctuation = [".", "!", "?"];
-    var sentenceArray = wordArray.filter(x => punctuation.includes(x[x.length-1]));
+    const sentenceCount = document.querySelector(".sentence-count-span");
+
+    // we can split each sentence on punctuation and newline
+    const wordArray = wordInput.value.split(/[.!?\n]/);
+
     if (wordInput.value.length > 0) {
-        sentenceCount.innerHTML = sentenceArray.length
+        sentenceCount.innerHTML = wordArray.length-1;
     } else {
-        sentenceCount.innerHTML = 0
-    }
-}
+        sentenceCount.innerHTML = 0;
+    };
+};
 
 //Returns most used word by splitting the text into words, getting the count of each word and returning the word that appears the most
 function getMostUsedWord() {
-    var mostUsedWord = document.getElementById("most-used-word");
-    var wordArray = wordInput.value.split(" ");
-    var initialCount = 1;
-    var count = 0;
-    for (var i=0; i<wordArray.length; i++)
-    {
-        for (var j=i; j<wordArray.length; j++)
-        {
-            if (wordArray[i] == wordArray[j]) {
-                count++;
-                if (initialCount<count){
-                    initialCount = count; 
-                    var word = wordArray[i];
-                }
-            }
-        }
-        count=0;
-    }
+    const mostUsedWord = document.querySelector(".most-used-word-span");
+    let wordArray = wordInput.value.trim().split(/\s+/);
+    let wordsMap = {};
+
+    wordArray.map(word => {
+      word = word.toLowerCase().replace(/[.!?]/g, "");
+      if (wordsMap.hasOwnProperty(word)) {
+        wordsMap[word]++;
+      } else {
+        wordsMap[word] = 1;
+      }
+    });
+
+    word = Object.keys(wordsMap).reduce((a, b) => wordsMap[a] > wordsMap[b] ? a : b);
     if (word) {
-        mostUsedWord.innerHTML = `${word} (${initialCount} times)`
+        mostUsedWord.innerHTML = `${word} (${wordsMap[word]} times)`;
     } else {
-        mostUsedWord.innerHTML = ""
-    }
-}
+        mostUsedWord.innerHTML = "";
+    };
+};
 
 /* Okay this function is a bit tricky so bear with me.
 It's meant to convert text to sentence case
@@ -112,14 +109,14 @@ function sentenceCase() {
         }
     }
     wordInput.value = converted.join(" ");
-}
+};
 
 //Function to convert text to title case by converting the first word of every letter to a capital letter
 function titleCase() {
     var value = wordInput.value.trim().split(" ");
     var converted = value.map(x => x.charAt(0).toUpperCase() + x.substr(1).toLowerCase()).join(" ");
     wordInput.value = converted;
-}
+};
 
 //Function to convert text to lower case by converting everything to lower case (not redundant at all actually)
 function lowerCase() {
@@ -133,13 +130,24 @@ function upperCase() {
     var value = wordInput.value.split(" ");
     var converted = value.map(x => x.toUpperCase()).join(" ");
     wordInput.value = converted;
-}
+};
 
 document.getElementById("word-input").onkeypress = function() {
-    getCharacterCount();
-    getWordCount();
-    getSentenceCount();
-    getMostUsedWord();
+    wordInput.onkeyup = function(event) {
+        // only run these functions if enter, ".", "!", "?", or backspace are pressed
+        if (event.keyCode === 13 || event.keyCode === 190 || event.keyCode === 191 || event.keyCode === 49 || event.keyCode === 8) {
+            getSentenceCount();
+            getMostUsedWord();
+        };
+
+        // only run this function if spacebar or backspace is pressed
+        if (event.keyCode === 32 || event.keyCode === 8) {
+            getWordCount();
+        };
+
+        // this needs to run all the time
+        getCharacterCount();
+    }
 }
 
 document.getElementById("sentence-case").onclick = function() {
