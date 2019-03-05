@@ -1,8 +1,10 @@
-# Word Counter
+# Word Processor
 
-## A word counting web app 
+## A word processing web app 
 
 The app returns the number of characters, words and sentences in text input.
+
+It converts text to sentence case, title case, lower and upper case.
 
 It also returns the most used word.
 
