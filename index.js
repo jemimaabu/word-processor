@@ -1,5 +1,6 @@
 var wordInput = document.getElementById("word-input");
 
+//Returns character count by splitting the text into individual characters and returning the length
 function getCharacterCount() {
     var characterCount = document.getElementById("character-count");
     if (wordInput.value.length > 0) {
@@ -9,6 +10,7 @@ function getCharacterCount() {
     }
 }
 
+//Returns word count by splitting the text according to space and returning the length
 function getWordCount() {
     var wordCount = document.getElementById("word-count");
     if (wordInput.value.length > 0) {
@@ -18,6 +20,7 @@ function getWordCount() {
     }
 }
 
+//Returns sentence count by splitting the text into words, filterning words that end with punctuation marks and returning the length
 function getSentenceCount() {
     var sentenceCount = document.getElementById("sentence-count");
     var wordArray = wordInput.value.split(" ");
@@ -30,6 +33,7 @@ function getSentenceCount() {
     }
 }
 
+//Returns most used word by splitting the text into words, getting the count of each word and returning the word that appears the most
 function getMostUsedWord() {
     var mostUsedWord = document.getElementById("most-used-word");
     var wordArray = wordInput.value.split(" ");
@@ -56,14 +60,100 @@ function getMostUsedWord() {
     }
 }
 
-document.getElementById("word-input").onkeypress =  function() {
+/* Okay this function is a bit tricky so bear with me.
+It's meant to convert text to sentence case
+So it registers a word after punctuation mark or at the beginning of a new line and sets the first character in uppercase.*/
+function sentenceCase() {
+    // Convert text to array of words
+    var value = wordInput.value.trim().split(" ");
+    console.log(value);
+    var punctuation=[".","?","!"];
+    //Convert all text to lowercase since that's how sentences are.
+    var converted = value.map(x => x.toLowerCase());
+    console.log(converted);
+    //Okay so now we're going to loop through the array
+    for (var i = 0; i < converted.length; i++) {
+        //Get the word in the array
+        var word = converted[i];
+        console.log(word);
+        //This if condition is for words that precede a new line. Say you have "Start hello\nworld\nbye", that's how it appears in the array
+        if (word.match(/\n/g)) {
+            //So we split the word at the new line => ["hello","world","bye"]
+            word = word.split("\n");
+            console.log(word);
+            //Remember we don't want the word preceding the new line so we splice it => ["world","bye"]
+            words = word.splice(1);
+            console.log(words);
+            console.log(word);
+            //Then we map our function to convert all words after the new line to a capital letter and join them with new lines so they resemble the original => "World\nBye"
+            var joinedWords = words.map(x => x.charAt(0).toUpperCase() + x.substr(1)).join('\n');
+            console.log(joinedWords);
+            //Okay, I wrote this code and even I know it's convoluted but basically at this point
+            //We replace the words in the original word array with the converted words array and join it with the new line; => "hello\nWorld\nBye"
+            word.push(joinedWords);
+            word = word.join('\n');
+            console.log(word);
+            //AND THEN we replace the word in the converted array
+            converted.splice(i,1,word);
+            //Simple right. But oh no, we're not done.
+        }
+        //Okay so this sentence variable is basically the next word after the current word i.e. converted[i+1]
+        var sentence = i < converted.length-1 ? converted[i+1] : "";
+        //We use this if condition to target the first word at the beginning of the text and convert it to sentence case
+        if (i==0) {
+            word = word.charAt(0).toUpperCase() + word.substr(1);
+            converted.splice(i,1,word)
+        }
+        //And then the simple function that I thought was the only thing we'd require. Lol.
+        //If the current word contains any of the punctuations defined above, convert the next word to sentence case.
+        if (punctuation.includes(word[word.length-1]) && sentence.length>0) {
+            sentence = sentence.charAt(0).toUpperCase() + sentence.substr(1);
+            converted.splice(i+1,1,sentence)
+        }
+    }
+    wordInput.value = converted.join(" ");
+}
+
+//Function to convert text to title case by converting the first word of every letter to a capital letter
+function titleCase() {
+    var value = wordInput.value.trim().split(" ");
+    var converted = value.map(x => x.charAt(0).toUpperCase() + x.substr(1).toLowerCase()).join(" ");
+    wordInput.value = converted;
+}
+
+//Function to convert text to lower case by converting everything to lower case (not redundant at all actually)
+function lowerCase() {
+    var value = wordInput.value.split(" ");
+    var converted = value.map(x => x.toLowerCase()).join(" ");
+    wordInput.value = converted;
+}
+
+//Function to convert text to upper case by converting everything to upper case (very necessary comment, ey?)
+function upperCase() {
+    var value = wordInput.value.split(" ");
+    var converted = value.map(x => x.toUpperCase()).join(" ");
+    wordInput.value = converted;
+}
+
+document.getElementById("word-input").onkeypress = function() {
     getCharacterCount();
     getWordCount();
     getSentenceCount();
     getMostUsedWord();
 }
 
-getCharacterCount();
-getWordCount();
-getSentenceCount();
-getMostUsedWord();
+document.getElementById("sentence-case").onclick = function() {
+    sentenceCase();
+}
+
+document.getElementById("title-case").onclick = function() {
+    titleCase();
+}
+
+document.getElementById("lower-case").onclick = function() {
+    lowerCase();
+}
+
+document.getElementById("upper-case").onclick = function() {
+    upperCase();
+}

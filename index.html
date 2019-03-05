@@ -3,20 +3,38 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Word Counter</title>
+        <title>Word Processor</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="A simple word counter webapp">
+        <meta name="description" content="A simple word counter webapp. Includes word count and case converter.">
         <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     </head>
     <body>
         <main>
-            <h1>Word Counter</h1>
+            <h1>Word Processor</h1>
+            <div id="controls">
+                <div class="input-container">
+                    <input type="radio" name="convert-text" id="sentence-case" title="Convert text to sentence case.">
+                    <label for=""> Sentence case </label>
+                </div>
+                <div class="input-container">
+                    <input type="radio" name="convert-text" id="title-case" title="Convert Text To Title Case.">
+                    <label for=""> Title case</label>
+                </div>
+                <div class="input-container">
+                    <input type="radio" name="convert-text" id="lower-case" title="convert text to lower case.">
+                    <label for=""> Lower case</label>
+                </div>
+                <div class="input-container">
+                    <input type="radio" name="convert-text" id="upper-case" title="CONVERT TEXT TO UPPER CASE.">
+                    <label for=""> Upper case</label>
+                </div>
+            </div>
             <aside id="word-counter-container">
                 <h2> Word count </h2>
                 <div id="word-counter">
-                    <p id="character-count"></p>
-                    <p id="word-count"></p>
-                    <p id="sentence-count"></p>
+                    <p id="character-count">0</p>
+                    <p id="word-count">0</p>
+                    <p id="sentence-count">0</p>
                     <p id="most-used-word"></p>
                 </div>
             </aside>
