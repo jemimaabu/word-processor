@@ -2,12 +2,9 @@
 
 ## A word processing web app 
 
-The app returns the number of characters, words and sentences in text input.
+The app returns the number of characters, words, sentences and most used word in text input.
 
-It converts text to sentence case, title case, lower and upper case.
-
-It also returns the most used word.
-
+It also converts text to sentence case, title case, lower and upper case.
 ___
 
 # Open Source
