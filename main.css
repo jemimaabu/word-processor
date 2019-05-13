@@ -20,13 +20,21 @@ main h1 {
 
 #controls {
     width: 75%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     padding: 1em;
     border: 2px solid black;
     margin-bottom: 1em;
     float: left;
+}
+
+#inputs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#controls p {
+    margin: 0 0 0.5em
 }
 
 #word-input-container {
