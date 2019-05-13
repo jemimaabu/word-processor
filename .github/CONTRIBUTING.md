@@ -1,10 +1,10 @@
 # Contributing
-The purpose of this project is to be an intro into open source for any beginners so you can go through the project site here [Word Counter](http://jemimaabu.github.io/word-counter) and then choose something to work on.
+The purpose of this project is to be an intro into open source for any beginners so you can go through the project site here [Word Processor](http://jemimaabu.github.io/word-processor) and then choose something to work on.
 
 I made the project as bare as possible so there should be many things to choose from (styling a button or optimizing the logic or whatever).
 
 ## Getting Started
-**Step 1**:  Create an issue for the task you want to work on (go through the [Issues](https://github.com/jemimaabu/word-counter/issues) page first to make sure it doesn't already exist) or select an already existing issue to work on.
+**Step 1**:  Create an issue for the task you want to work on (go through the [Issues](https://github.com/jemimaabu/word-processor/issues) page first to make sure it doesn't already exist) or select an already existing issue to work on.
 
 **Step 2**: Assign the issue to yourself or leave a comment under an existing issue, requesting assignment.
 
